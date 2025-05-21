@@ -22,3 +22,15 @@ console.log(add(4, 5));
 console.log(subtract(5, 4));
 console.log(multiply(5, 4));
 console.log(divide(4, 2));
+
+function operate(x, y, operator) {
+  if (operator === "+") {
+    add(x, y);
+  } else if (operator === "-") {
+    subtract(x, y);
+  } else if (operator === "*") {
+    multiply(x, y);
+  } else if (operator === "/") {
+    divide(x, y);
+  }
+}
