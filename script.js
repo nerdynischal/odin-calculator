@@ -1,3 +1,8 @@
+let x = "";
+let y = "";
+let temp = "";
+let operator = "";
+
 function operate(x, y, operator) {
   x = parseInt(x);
   y = parseInt(y);
@@ -21,50 +26,46 @@ function displayNumber(input) {
 
 let displayNumberValue = "";
 
-const buttons = document.querySelectorAll(".button");
-buttons.forEach((button) => {
+//number buttons
+const numButtons = document.querySelectorAll(".num-button");
+numButtons.forEach((button) => {
   button.addEventListener("click", () => {
-    if (button.innerHTML === "=") {
-      checkOperator();
-      displayNumber(displayNumberValue);
-      resetDisplay();
-    } else if (button.innerHTML === "AC") {
-      resetDisplay();
-      displayNumber(0);
-    } else {
-      displayNumberValue += button.innerHTML;
-      displayNumber(displayNumberValue);
-    }
+    temp += button.innerHTML;
+    displayNumber(temp);
+
+    console.log("Temp: " + temp);
+    console.log("X: " + x);
+    console.log("Y: " + y);
   });
 });
 
-//if user presses =, it needs to operate the two numbers
-//the display 1+1
-//split this with the operator too
-//check for the operator
-//split the left side and the right side
+//operate buttons
+const opButtons = document.querySelectorAll(".op-button");
+opButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    operator = button.innerHTML;
+    displayNumber(operator);
 
-function checkOperator() {
-  let nums = [];
-  let result = 0;
+    if (!x && !y) {
+      x = temp;
+      temp = "";
+    } else {
+      y = temp;
+      temp = "";
+    }
 
-  if (displayNumberValue.includes("+")) {
-    nums = displayNumberValue.split("+");
-    result = operate(nums[0], nums[1], "+");
-  } else if (displayNumberValue.includes("-")) {
-    nums = displayNumberValue.split("-");
-    result = operate(nums[0], nums[1], "-");
-  } else if (displayNumberValue.includes("*")) {
-    nums = displayNumberValue.split("*");
-    result = operate(nums[0], nums[1], "*");
-  } else if (displayNumberValue.includes("/")) {
-    nums = displayNumberValue.split("/");
-    result = operate(nums[0], nums[1], "/");
-  }
+    console.log("OperatorX: " + x);
+    console.log("OperatorY: " + y);
+    console.log("Operator: " + operator);
 
-  displayNumberValue = result;
-}
+    if (x && y && operator) {
+      const result = operate(x, y, operator);
+      console.log("Result: " + result);
+      displayNumber(result);
 
-function resetDisplay() {
-  displayNumberValue = "";
-}
+      x = result;
+      y = "";
+      operator = "";
+    }
+  });
+});

@@ -23,7 +23,10 @@ body {
   flex-direction: column;
 }
 
-.button {
+.num-button,
+.op-button,
+.ac-button,
+.operate-button {
   display: flex;
   align-items: center;
   justify-content: center;
