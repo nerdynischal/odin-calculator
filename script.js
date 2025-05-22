@@ -1,36 +1,70 @@
-let x = "";
-let y = "";
-let operator = "";
-
-function add(x, y) {
-  return x + y;
-}
-
-function subtract(x, y) {
-  return x - y;
-}
-
-function multiply(x, y) {
-  return x * y;
-}
-
-function divide(x, y) {
-  return x / y;
-}
-
-console.log(add(4, 5));
-console.log(subtract(5, 4));
-console.log(multiply(5, 4));
-console.log(divide(4, 2));
-
 function operate(x, y, operator) {
+  x = parseInt(x);
+  y = parseInt(y);
+
   if (operator === "+") {
-    add(x, y);
+    return x + y;
   } else if (operator === "-") {
-    subtract(x, y);
+    return x - y;
   } else if (operator === "*") {
-    multiply(x, y);
+    return x * y;
   } else if (operator === "/") {
-    divide(x, y);
+    return x / y;
   }
+}
+
+const displayHTML = document.querySelector(".js-display");
+
+function displayNumber(input) {
+  displayHTML.textContent = `${input}`;
+}
+
+let displayNumberValue = "";
+
+const buttons = document.querySelectorAll(".button");
+buttons.forEach((button) => {
+  button.addEventListener("click", () => {
+    if (button.innerHTML === "=") {
+      checkOperator();
+      displayNumber(displayNumberValue);
+      resetDisplay();
+    } else if (button.innerHTML === "AC") {
+      resetDisplay();
+      displayNumber(0);
+    } else {
+      displayNumberValue += button.innerHTML;
+      displayNumber(displayNumberValue);
+    }
+  });
+});
+
+//if user presses =, it needs to operate the two numbers
+//the display 1+1
+//split this with the operator too
+//check for the operator
+//split the left side and the right side
+
+function checkOperator() {
+  let nums = [];
+  let result = 0;
+
+  if (displayNumberValue.includes("+")) {
+    nums = displayNumberValue.split("+");
+    result = operate(nums[0], nums[1], "+");
+  } else if (displayNumberValue.includes("-")) {
+    nums = displayNumberValue.split("-");
+    result = operate(nums[0], nums[1], "-");
+  } else if (displayNumberValue.includes("*")) {
+    nums = displayNumberValue.split("*");
+    result = operate(nums[0], nums[1], "*");
+  } else if (displayNumberValue.includes("/")) {
+    nums = displayNumberValue.split("/");
+    result = operate(nums[0], nums[1], "/");
+  }
+
+  displayNumberValue = result;
+}
+
+function resetDisplay() {
+  displayNumberValue = "";
 }
