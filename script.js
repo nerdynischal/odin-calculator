@@ -69,3 +69,18 @@ opButtons.forEach((button) => {
     }
   });
 });
+
+//clear button
+const acButton = document.querySelector(".ac-button");
+acButton.addEventListener("click", () => {
+  x = "";
+  y = "";
+  temp = "";
+  operator = "";
+  displayNumber(0);
+
+  console.log("actemp: " + temp);
+  console.log("acX: " + x);
+  console.log("acY: " + y);
+  console.log("ac-operator: " + operator);
+});
