@@ -1,20 +1,42 @@
 let x = "";
 let y = "";
-let temp = "";
 let operator = "";
+let result = "";
+
+let isX = true;
+
+function add(x, y) {
+  result = x + y;
+}
+
+function subtract(x, y) {
+  result = x - y;
+}
+
+function multiply(x, y) {
+  result = x * y;
+}
+
+function divide(x, y) {
+  result = x / y;
+}
 
 function operate(x, y, operator) {
   x = parseInt(x);
   y = parseInt(y);
 
+  console.log("x:" + x);
+  console.log("y:" + y);
+  console.log("operator:" + operator);
+
   if (operator === "+") {
-    return x + y;
+    add(x, y);
   } else if (operator === "-") {
-    return x - y;
+    subtract(x, y);
   } else if (operator === "*") {
-    return x * y;
+    multiply(x, y);
   } else if (operator === "/") {
-    return x / y;
+    divide(x, y);
   }
 }
 
@@ -30,12 +52,13 @@ let displayNumberValue = "";
 const numButtons = document.querySelectorAll(".num-button");
 numButtons.forEach((button) => {
   button.addEventListener("click", () => {
-    temp += button.innerHTML;
-    displayNumber(temp);
-
-    console.log("Temp: " + temp);
-    console.log("X: " + x);
-    console.log("Y: " + y);
+    if (isX) {
+      x += button.innerHTML;
+      displayNumber(x);
+    } else {
+      y += button.innerHTML;
+      displayNumber(y);
+    }
   });
 });
 
@@ -43,44 +66,43 @@ numButtons.forEach((button) => {
 const opButtons = document.querySelectorAll(".op-button");
 opButtons.forEach((button) => {
   button.addEventListener("click", () => {
-    operator = button.innerHTML;
-    displayNumber(operator);
-
-    if (!x && !y) {
-      x = temp;
-      temp = "";
-    } else {
-      y = temp;
-      temp = "";
-    }
-
-    console.log("OperatorX: " + x);
-    console.log("OperatorY: " + y);
-    console.log("Operator: " + operator);
-
-    if (x && y && operator) {
-      const result = operate(x, y, operator);
-      console.log("Result: " + result);
+    if (x !== "" && y !== "") {
+      operate(x, y, operator);
       displayNumber(result);
-
       x = result;
       y = "";
-      operator = "";
+      isX = false;
+    } else {
+      operator = button.innerHTML;
+      displayNumber(operator);
+      isX = false;
     }
+    operator = button.innerHTML;
   });
 });
 
-//clear button
+//evaluate function
+const calcButton = document.querySelector(".calc-button");
+calcButton.addEventListener("click", () => {
+  if (x === "") {
+    displayNumber("Enter number");
+  } else {
+    operate(x, y, operator);
+    x = result;
+    y = "";
+    isX = false;
+    console.log(result);
+    displayNumber(result);
+  }
+});
+
+//clear button to reset all values
 const acButton = document.querySelector(".ac-button");
 acButton.addEventListener("click", () => {
   x = "";
   y = "";
-  temp = "";
+  result = "";
   operator = "";
+  isX = true;
   displayNumber(0);
-
-  console.log("actemp: " + temp);
-  console.log("acX: " + x);
-  console.log("acY: " + y);
-  console.log("ac-operator: " + operator);
 });

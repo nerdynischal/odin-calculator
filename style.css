@@ -26,7 +26,7 @@ body {
 .num-button,
 .op-button,
 .ac-button,
-.operate-button {
+.calc-button {
   display: flex;
   align-items: center;
   justify-content: center;
