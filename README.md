@@ -1,3 +1,3 @@
-#Calculator Project from The Odin Project
+# Calculator Project from The Odin Project
 
 A project to practice HTML, CSS & Javascript from the foundations section of the Odin Project. 
